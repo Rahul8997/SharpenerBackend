@@ -9,7 +9,10 @@ const Shop = sequelize.define('shop', {
     allowNull: false,
     primaryKey: true
   },
-  Candyname: Sequelize.STRING,
+  Candyname:  {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   Description: {
     type: Sequelize.STRING,
     allowNull: false

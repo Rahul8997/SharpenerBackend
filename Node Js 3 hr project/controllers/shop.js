@@ -3,14 +3,14 @@ const Shop = require('../models/Shop');
 const bodyParser = require('body-parser');
 
 exports.getAddcandy = (req, res, next) => {
-  // res.send("hello from shop");
-  Shop.findAll()
-   .then(candies => {
-      console.log(candies)
-   })
-   .catch(err => {
-    console.log(err)
-   });
+  res.send("hello from shop");
+  // Shop.findAll()
+  //  .then(candies => {
+  //     console.log(candies)
+  //  })
+  //  .catch(err => {
+  //   console.log(err)
+  //  });
 };
 
 exports.postAddcandy = (req, res, next) => {
@@ -22,19 +22,26 @@ exports.postAddcandy = (req, res, next) => {
   const description=req.body.description;
   const quantity=req.body.quantity;
 
- console.log(req.body)
+ console.log(req.body.candyname)
 //  console.log({
 //     Candyname:candyname,
 //     Description:description,
 //     price:price,
 //     Quantity:quantity
 //   })
-  // Shop.create({
-  //   Candyname:candyname,
-  //   Description:description,
-  //   price:price,
-  //   Quantity:quantity
-  // })
+
+  Shop.create({
+    Candyname:candyname,
+    Description:description,
+    Price:price,
+    Quantity:quantity
+  })
+  .then((candy)=>{
+    console.log(candy);
+    res.json(candy)
+  })
+  .catch((err)=>console.log(err));
+
   // res.redirect('/add-candy')
   //  .then(products => {
   //   res.render('shop/product-list', {

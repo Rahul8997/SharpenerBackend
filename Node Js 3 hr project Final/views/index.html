@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+</head>
+<h1>My Candy shop</h1>
+<body>
+    <form action="/add-candy" method="post">
+        <div class="msg"></div>
+
+        <label>Item Name:</label>
+        <input type="text" id="ItemName" name="ItemName">
+
+        <label>Description:</label>
+        <input type="text" id="Description" name="Description">
+
+        <label>Price:</label>
+        <input type="number" id="Price" name="Price">
+
+        <label>Quantity:</label>
+        <input type="number" id="Quantity" name="Quantity">
+
+        <input class="btn" type="submit" value="Add Item">
+    </form>
+
+    <ul id='listOfCandies'></ul>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        async function getCandies() {
+            const items = await axios.get('http://localhost:3000/get-candy');
+            console.log(items);
+            const parentNode = document.getElementById('listOfCandies');
+            items.data.forEach(item => {
+                const childHTML = `<li id=${item.id}> ${item.ItemName} : ${item.Description} : ${item.Price}
+                  : ${item.Quantity}
+                  <form action="/buy-1" method="POST">
+                    <input type="hidden" value=${item.id} name="itemId">
+                    <button onclick=deleteUser(${item.id}) type="submit">buy-1</button>
+                  </form>
+                  <form action="/buy-2" method="POST">
+                    <input type="hidden" value=${item.id} name="itemId">
+                    <button onclick=deleteUser(${item.id}) type="submit">buy-2</button>
+                  </form>
+                  <form action="/delete-candy" method="POST">
+                    <input type="hidden" value=${item.id} name="itemId">
+                    <button onclick=deleteCandy(${item.id}) type="submit">Delete</button>
+                  </form>
+                </li>`;
+                parentNode.innerHTML = parentNode.innerHTML + childHTML;
+            });
+        }
+
+        async function deleteCandy(itemId) {
+            const items = await axios.post(`http://localhost:3000/delete-candy`);
+            getCandies();
+        }
+
+        getCandies();
+
+    </script>
+</body>
+
+</html>

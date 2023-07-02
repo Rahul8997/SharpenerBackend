@@ -11,8 +11,8 @@
 <body>
     <form onsubmit="saveToCrudCrud(event)" action="http://localhost:3000/add-candy" method="post">
         <h1>Candy's Shop</h1>
-        <label for="candyName">Candyname</label>
-        <input id='candyName' type="text" name="candy" required />
+        <label for="candyname">CandyName</label>
+        <input id='candyname' type="text" name="candyname" required />
 
         <label for="description">Description</label>
         <input id='description' type="text" name="description" required />
@@ -30,7 +30,7 @@
 
         function saveToCrudCrud(event) {
             event.preventDefault();
-            const candyName = event.target.candyName.value;
+            const candyName = event.target.candyname.value;
             const description = event.target.description.value;
             const price = event.target.price.value;
             const quantity = event.target.quantity.value;
